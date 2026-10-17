@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DukaanSense — Shop · Numbers · Decisions</title>
+  <meta name="description" content="Intelligent retail operating system for Indian Kirana & neighborhood shops. Integrated sales, Udhaar credit tracking, rule-based alerts, and Gemini AI advisor.">
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+</head>
+<body class="app-body">
+  <!-- APP CONTAINER -->
+  <div id="app" class="app-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <!-- Brand Logo -->
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"></path>
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+            <path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"></path>
+            <path d="M2 7h20"></path>
+            <circle cx="12" cy="7" r="1.5"></circle>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h2 class="brand-title">DukaanSense</h2>
+          <span class="brand-subtitle">Shop · Numbers · Decisions</span>
+        </div>
+      </div>
+
+      <!-- Current Shop Card -->
+      <div class="current-shop-card">
+        <div class="shop-badge-label">CURRENT SHOP</div>
+        <div class="shop-name" id="shop-name-display">Patel Stores</div>
+        <div class="shop-owner" id="shop-owner-display">Gurpreet Singh · Owner</div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="sidebar-nav">
+        <!-- Overview Section -->
+        <div class="nav-section-label">OVERVIEW</div>
+        <button class="nav-item active" data-view="dashboard" id="nav-dashboard">
+          <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>Dashboard</span>
+        </button>
+
+        <button class="nav-item" data-view="action-center" id="nav-action-center">
+          <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>Action Center</span>
+          <span class="nav-badge" id="open-tasks-badge">3</span>
+        </button>
+
+        <!-- Business Section -->
+        <div class="nav-section-label">BUSINESS</div>
+        <button class="nav-item" id="nav-new-sale-trigger">
+          <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span>New Sale</span>
+        </button>
+
+        <button class="nav-item" data-view="sales" id="nav-sales">
+          <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span>Sales</span>
+        </button>
+
+        <button class="nav-item" data-view="products" id="nav-products">
+          <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+          <span>Products</span>
+        </button>
+
+        <button class="nav-item" data-view="udhaar" id="nav-udhaar">
+          <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          <span>Udhaar Ledger</span>
+        </button>
+      </nav>
+
+      <!-- Bottom User / Logout Section -->
+      <div class="sidebar-footer">
+        <button class="nav-item logout-btn" id="nav-logout">
+          <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Log out</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT VIEW AREA -->
+    <main class="main-wrapper">
+      
+      <!-- TOP STATUS BAR -->
+      <header class="top-status-bar">
+        <div class="breadcrumbs">
+          <span class="active-crumb" id="breadcrumb-current">Dashboard</span>
+        </div>
+        <div class="top-actions">
+          <!-- Gemini AI Connection Indicator -->
+          <div class="ai-status-pill" id="gemini-status-pill" title="Gemini AI Integration Status">
+            <span class="ai-status-dot"></span>
+            <span class="ai-status-label" id="ai-status-text">Checking Gemini...</span>
+          </div>
+          <!-- Co-Pilot Assistant Trigger Button -->
+          <button class="btn-copilot" id="open-copilot-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"></path>
+            </svg>
+            <span>Dukaan AI Co-pilot</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- ============================================== -->
+      <!-- VIEW 1: DASHBOARD (Matches Screenshot 1)      -->
+      <!-- ============================================== -->
+      <section class="view-panel active" id="view-dashboard">
+        <!-- Dashboard Header -->
+        <div class="view-header">
+          <div>
+            <h1 class="view-title">Dashboard</h1>
+            <p class="view-subtitle">Your shop, your numbers</p>
+          </div>
+          <div class="header-controls">
+            <!-- Period Filters -->
+            <div class="period-toggle-group">
+              <button class="pill-btn active" data-period="today">Today</button>
+              <button class="pill-btn" data-period="7days">7 days</button>
+              <button class="pill-btn" data-period="30days">30 days</button>
+            </div>
+            <!-- New Sale Action Button -->
+            <button class="btn-primary" id="btn-quick-new-sale">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              <span>New sale</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 KPI Metrics Cards Grid -->
+        <div class="kpi-grid">
+          <!-- Card 1: Sales -->
+          <div class="kpi-card">
+            <div class="kpi-card-header">
+              <span class="kpi-label">Sales</span>
+              <div class="kpi-icon-bubble bubble-mint">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="kpi-sales">₹881</div>
+            <div class="kpi-subtext" id="kpi-sales-sub">3 bills · +392% vs previous period</div>
+          </div>
+
+          <!-- Card 2: Expenses recorded -->
+          <div class="kpi-card">
+            <div class="kpi-card-header">
+              <span class="kpi-label">Expenses recorded</span>
+              <div class="kpi-icon-bubble bubble-peach">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  <path d="M12 4v16"></path>
+                  <path d="M16 8h.01"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="kpi-expenses">₹240</div>
+            <div class="kpi-subtext">Shop running costs, not stock purchases</div>
+          </div>
+
+          <!-- Card 3: Est. gross profit -->
+          <div class="kpi-card">
+            <div class="kpi-card-header">
+              <span class="kpi-label">Est. gross profit</span>
+              <div class="kpi-icon-bubble bubble-sage">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                  <polyline points="17 6 23 6 23 12"></polyline>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="kpi-gross-profit">₹123</div>
+            <div class="kpi-subtext">Sales minus cost of goods billed</div>
+          </div>
+
+          <!-- Card 4: Udhaar pending -->
+          <div class="kpi-card">
+            <div class="kpi-card-header">
+              <span class="kpi-label">Udhaar pending</span>
+              <div class="kpi-icon-bubble bubble-sand">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-value" id="kpi-udhaar">₹1,178</div>
+            <div class="kpi-subtext" id="kpi-udhaar-sub">3 customers with a balance</div>
+          </div>
+        </div>
+
+        <!-- Dashboard Split Section: Receipts by method vs Low Stock -->
+        <div class="dashboard-split-layout">
+          <!-- Receipts by Method Card -->
+          <div class="content-card receipts-card">
+            <div class="card-header-bar">
+              <div class="card-title-group">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path>
+                </svg>
+                <h3 class="card-title">Receipts by method</h3>
+              </div>
+              <span class="card-date-badge" id="current-date-badge">2026-10-17</span>
+            </div>
+
+            <!-- 4 Payment Method Tiles -->
+            <div class="payment-methods-grid">
+              <div class="method-tile">
+                <span class="method-name">Cash</span>
+                <span class="method-amount" id="receipt-cash">₹171</span>
+              </div>
+              <div class="method-tile">
+                <span class="method-name">UPI</span>
+                <span class="method-amount" id="receipt-upi">₹476</span>
+              </div>
+              <div class="method-tile">
+                <span class="method-name">Card</span>
+                <span class="method-amount" id="receipt-card">₹0</span>
+              </div>
+              <div class="method-tile">
+                <span class="method-name">Udhaar</span>
+                <span class="method-amount" id="receipt-udhaar">₹234</span>
+              </div>
+            </div>
+
+            <!-- Stats Bottom Strip -->
+            <div class="receipts-stats-strip">
+              <div class="stat-col">
+                <span class="stat-lbl">Bills</span>
+                <span class="stat-val" id="strip-bills">3</span>
+              </div>
+              <div class="stat-col">
+                <span class="stat-lbl">Discounts given</span>
+                <span class="stat-val" id="strip-discounts">₹0</span>
+              </div>
+              <div class="stat-col">
+                <span class="stat-lbl">Stock bought</span>
+                <span class="stat-val" id="strip-stock-bought">₹0</span>
+              </div>
+              <div class="stat-col">
+                <span class="stat-lbl">Net profit</span>
+                <span class="stat-val stat-negative" id="strip-net-profit">-₹117</span>
+              </div>
+            </div>
+
+            <p class="receipts-disclaimer">
+              Cancelled and reversed bills are excluded from every figure above.
+            </p>
+          </div>
+
+          <!-- Low Stock Alert Card -->
+          <div class="content-card low-stock-card">
+            <div class="card-header-bar">
+              <div class="card-title-group">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <h3 class="card-title">Low stock</h3>
+              </div>
+              <span class="stock-col-label">Stock</span>
+            </div>
+
+            <!-- Low Stock Items List -->
+            <div class="low-stock-list" id="low-stock-items-container">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW 2: ACTION CENTER (Matches Screenshot 2)   -->
+      <!-- ============================================== -->
+      <section class="view-panel" id="view-action-center">
+        <div class="view-header">
+          <div>
+            <h1 class="view-title">Daily action center</h1>
+            <p class="view-subtitle">Made from your own records — every task shows its reason and the data behind it</p>
+          </div>
+          <button class="btn-primary" id="btn-run-check">
+            <svg class="spin-on-click" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+            </svg>
+            <span>Run today's check</span>
+          </button>
+        </div>
+
+        <!-- Action Center Stats Grid -->
+        <div class="action-stats-grid">
+          <div class="kpi-card stat-mini">
+            <span class="kpi-label">Open tasks</span>
+            <div class="kpi-value" id="action-open-count">3</div>
+          </div>
+          <div class="kpi-card stat-mini">
+            <span class="kpi-label">High priority</span>
+            <div class="kpi-value text-danger" id="action-high-count">2</div>
+          </div>
+          <div class="kpi-card stat-mini">
+            <span class="kpi-label">Last checked</span>
+            <div class="kpi-value text-muted" id="action-last-checked">Today at 2:30 PM</div>
+          </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="action-filter-tabs">
+          <button class="pill-btn active" data-task-filter="open">Open</button>
+          <button class="pill-btn" data-task-filter="done">Done</button>
+          <button class="pill-btn" data-task-filter="closed">Closed automatically</button>
+          <button class="pill-btn" data-task-filter="all">All</button>
+        </div>
+
+        <!-- Rule-Based vs AI Disclaimer Notice -->
+        <div class="info-callout-banner">
+          <svg class="info-banner-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <p>
+            Rule-based alerts come from clear checks on your stock, expiry dates, udhaar and sales.
+            They are labelled separately from any AI suggestion, and nothing here claims that a sale was wrong or fraudulent — only what the records show.
+          </p>
+        </div>
+
+        <!-- Task List Container -->
+        <div class="tasks-container" id="tasks-list">
+          <!-- Populated dynamically -->
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW 3: SALES (Matches Screenshot 3)           -->
+      <!-- ============================================== -->
+      <section class="view-panel" id="view-sales">
+        <div class="view-header">
+          <div>
+            <h1 class="view-title">Sales</h1>
+            <p class="view-subtitle">Every bill, with returns shown as reversed — nothing is deleted</p>
+          </div>
+          <div class="header-controls">
+            <button class="btn-secondary" id="btn-export-csv">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Export CSV</span>
+            </button>
+            <button class="btn-primary" id="btn-sales-new-sale">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              <span>New sale</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filters Bar -->
+        <div class="sales-filter-card">
+          <div class="filter-row">
+            <div class="period-toggle-group">
+              <button class="pill-btn" data-sales-period="today">Today</button>
+              <button class="pill-btn active" data-sales-period="7days">7 days</button>
+              <button class="pill-btn" data-sales-period="30days">30 days</button>
+            </div>
+
+            <div class="date-range-inputs">
+              <div class="date-field">
+                <input type="date" id="filter-date-from" value="2026-10-10">
+              </div>
+              <span class="range-divider">to</span>
+              <div class="date-field">
+                <input type="date" id="filter-date-to" value="2026-10-17">
+              </div>
+            </div>
+
+            <div class="select-field">
+              <select id="filter-payment-method">
+                <option value="all">All payments</option>
+                <option value="cash">Cash</option>
+                <option value="upi">UPI</option>
+                <option value="card">Card</option>
+                <option value="udhaar">Udhaar</option>
+              </select>
+            </div>
+
+            <div class="select-field">
+              <select id="filter-status">
+                <option value="all">All statuses</option>
+                <option value="completed">Completed</option>
+                <option value="reversed">Reversed</option>
+              </select>
+            </div>
+
+            <div class="search-field">
+              <input type="text" id="sales-search-input" placeholder="Search bill # or customer...">
+            </div>
+          </div>
+        </div>
+
+        <!-- Sales Bills Table -->
+        <div class="content-card table-wrapper-card">
+          <table class="data-table" id="sales-table">
+            <thead>
+              <tr>
+                <th>Bill #</th>
+                <th>Time</th>
+                <th>Customer</th>
+                <th>Items summary</th>
+                <th>Method</th>
+                <th>Status</th>
+                <th class="text-right">Total</th>
+                <th class="text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="sales-table-body">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW 4: PRODUCTS INVENTORY                     -->
+      <!-- ============================================== -->
+      <section class="view-panel" id="view-products">
+        <div class="view-header">
+          <div>
+            <h1 class="view-title">Products & Inventory</h1>
+            <p class="view-subtitle">Manage store catalog, prices, profit margins, and reorder alerts</p>
+          </div>
+          <button class="btn-primary" id="btn-add-product">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>Add product</span>
+          </button>
+        </div>
+
+        <div class="content-card table-wrapper-card">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Selling Price</th>
+                <th>Cost Price</th>
+                <th>Margin</th>
+                <th>Current Stock</th>
+                <th>Reorder Level</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="products-table-body">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW 5: UDHAAR CREDIT LEDGER                   -->
+      <!-- ============================================== -->
+      <section class="view-panel" id="view-udhaar">
+        <div class="view-header">
+          <div>
+            <h1 class="view-title">Udhaar Credit Book</h1>
+            <p class="view-subtitle">Track customer balances, payment aging, and send AI WhatsApp reminders</p>
+          </div>
+        </div>
+
+        <div class="content-card table-wrapper-card">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Customer</th>
+                <th>Phone</th>
+                <th>Pending Balance</th>
+                <th>Days Overdue</th>
+                <th>Last Purchase</th>
+                <th>AI Recovery</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="udhaar-table-body">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============================================== -->
+      <!-- VIEW 6: LOGIN (Matches Screenshot 4)           -->
+      <!-- ============================================== -->
+      <section class="view-panel" id="view-login">
+        <div class="login-page-container">
+          <div class="login-card">
+            <!-- Icon -->
+            <div class="login-header-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                <polyline points="10 17 15 12 10 7"></polyline>
+                <line x1="15" y1="12" x2="3" y2="12"></line>
+              </svg>
+            </div>
+
+            <h1 class="login-title">Welcome back</h1>
+            <p class="login-subtitle">Log in to your account</p>
+
+            <!-- Google OAuth Button -->
+            <button class="btn-google" id="btn-google-login">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path fill="#ffffff" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#ffffff" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#ffffff" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                <path fill="#ffffff" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+              </svg>
+              <span>Continue with Google</span>
+            </button>
+
+            <!-- OR Divider -->
+            <div class="login-divider">
+              <span>OR</span>
+            </div>
+
+            <!-- Email & Password Form -->
+            <form id="login-form">
+              <div class="form-group">
+                <label for="login-email">Email</label>
+                <div class="input-with-icon">
+                  <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                  </svg>
+                  <input type="email" id="login-email" placeholder="you@example.com" value="gurpreetbhatia1293@gmail.com" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="label-with-link">
+                  <label for="login-password">Password</label>
+                  <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+                <div class="input-with-icon">
+                  <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <input type="password" id="login-password" placeholder="••••••••" value="••••••••" required>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary btn-block">Log in</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: NEW SALE / QUICK POS BILLING            -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="modal-new-sale">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">New Sale / Bill</h3>
+        <button class="modal-close-btn" id="close-modal-sale">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="pos-grid">
+          <!-- Left: Item selection -->
+          <div class="pos-item-select-col">
+            <label class="form-label">Add Item from Catalog</label>
+            <div class="pos-search-box">
+              <select id="pos-product-picker" class="form-select">
+                <option value="">-- Choose product --</option>
+              </select>
+              <button class="btn-secondary" id="btn-add-item-to-cart">Add</button>
+            </div>
+
+            <!-- Items Table in Cart -->
+            <div class="pos-cart-list" id="pos-cart-items">
+              <p class="empty-cart-hint">Cart is empty. Select products above.</p>
+            </div>
+          </div>
+
+          <!-- Right: Customer, Payment & Total -->
+          <div class="pos-checkout-col">
+            <div class="form-group">
+              <label class="form-label">Payment Method</label>
+              <div class="payment-pills-row">
+                <button type="button" class="pay-pill active" data-method="Cash">Cash</button>
+                <button type="button" class="pay-pill" data-method="UPI">UPI</button>
+                <button type="button" class="pay-pill" data-method="Card">Card</button>
+                <button type="button" class="pay-pill" data-method="Udhaar">Udhaar</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Customer Name</label>
+              <input type="text" id="pos-customer-name" class="form-input" placeholder="e.g. Ramesh Kumar">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Phone Number (Optional)</label>
+              <input type="text" id="pos-customer-phone" class="form-input" placeholder="+91 98765 43210">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Discount (₹)</label>
+              <input type="number" id="pos-discount" class="form-input" value="0" min="0">
+            </div>
+
+            <div class="pos-total-summary">
+              <div class="pos-sum-row">
+                <span>Subtotal:</span>
+                <span id="pos-subtotal">₹0</span>
+              </div>
+              <div class="pos-sum-row">
+                <span>Discount:</span>
+                <span id="pos-discount-display">-₹0</span>
+              </div>
+              <div class="pos-sum-row total-highlight">
+                <span>Final Total:</span>
+                <span id="pos-grand-total">₹0</span>
+              </div>
+            </div>
+
+            <button class="btn-primary btn-block btn-lg" id="btn-complete-sale">
+              Complete Sale & Print Bill
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: AI WHATSAPP UDHAAR REMINDER             -->
+  <!-- ============================================== -->
+  <div class="modal-backdrop" id="modal-whatsapp-reminder">
+    <div class="modal-card modal-sm">
+      <div class="modal-header">
+        <h3 class="modal-title">AI WhatsApp Udhaar Reminder</h3>
+        <button class="modal-close-btn" id="close-modal-whatsapp">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="whatsapp-loading-spinner" class="spinner-state" style="display:none;">
+          <p>Gemini AI is drafting personalized reminder...</p>
+        </div>
+        <div id="whatsapp-content-box">
+          <label class="form-label">Hinglish / Hindi Message (Ready to send):</label>
+          <textarea id="whatsapp-draft-hindi" class="form-textarea" rows="4"></textarea>
+
+          <label class="form-label" style="margin-top:12px;">English Message:</label>
+          <textarea id="whatsapp-draft-english" class="form-textarea" rows="3"></textarea>
+
+          <div class="modal-actions-row">
+            <button class="btn-secondary" id="btn-copy-reminder">Copy Message</button>
+            <a href="#" target="_blank" class="btn-whatsapp" id="btn-open-wa">
+              Open WhatsApp Web
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- DRAWER: DUKAAN AI CO-PILOT ASSISTANT           -->
+  <!-- ============================================== -->
+  <div class="copilot-drawer" id="copilot-drawer">
+    <div class="copilot-header">
+      <div class="copilot-title-group">
+        <div class="ai-sparkle-icon">✨</div>
+        <div>
+          <h4>DukaanSense AI Co-pilot</h4>
+          <span class="copilot-subtitle">Powered by Gemini 2.5 Flash</span>
+        </div>
+      </div>
+      <button class="drawer-close-btn" id="close-copilot-drawer">&times;</button>
+    </div>
+
+    <!-- Chat Messages History -->
+    <div class="copilot-messages" id="copilot-messages">
+      <div class="copilot-bubble bubble-assistant">
+        Namaste! I am your DukaanSense Assistant. I continuously analyze your sales, inventory, and pending udhaar to give you actionable business advice.
+        <br><br>
+        <strong>Try asking:</strong>
+        <div class="suggested-chips">
+          <button class="chip-btn" data-prompt="How is my profit margin today?">How is my profit today?</button>
+          <button class="chip-btn" data-prompt="Which items should I reorder urgently?">Which items to reorder?</button>
+          <button class="chip-btn" data-prompt="Who owes the highest Udhaar?">Highest Udhaar balance?</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Input Box -->
+    <form class="copilot-input-bar" id="copilot-form">
+      <input type="text" id="copilot-input" placeholder="Ask anything about your shop..." autocomplete="off">
+      <button type="submit" class="btn-primary btn-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </form>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
